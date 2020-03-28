@@ -9,9 +9,10 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
-
+import ParticlesBg from "particles-bg";
 import Navigation from './components/Navigation/Navigation';
 import Dashboard from "./components/Dashboard/Dashboard";
+import FooterHandler from "./components/Footer/Footer";
 
 library.add(faTrash);
 library.add(faPen);
@@ -19,13 +20,19 @@ library.add(faCheck);
 
 class App extends Component {
 
-    state = {
-        items: [],
-        id: uuid(),
-        item: "",
-        editItem: false,
-        completed: false
-    };
+    constructor() {
+        super();
+
+        this.state = {
+            items: [],
+            id: uuid(),
+            item: "",
+            editItem: false,
+            completed: false
+        };
+
+    }
+
     handleEdit = e => {
         this.setState({
             item: e.target.value
@@ -42,7 +49,7 @@ class App extends Component {
                 title:this.state.item,
                 completion: false
             };
-            const updatedItems = [...this.state.items,newItem];
+            const updatedItems = [newItem, ...this.state.items];
 
             this.setState({
                 items:updatedItems,
@@ -95,8 +102,6 @@ class App extends Component {
 
         const completedItem = this.state.items.find(item => item.id === id);
 
-        //this.handleDelete(id);
-
         this.setState({
             items: filteredItems,
             editItem: false,
@@ -122,16 +127,24 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Navigation/>
-                <Dashboard/>
-                <div className="row">
-                    <div className="container-fluid col-md-6">
-                        <ToDoInput item={this.state.item} handleEdit={this.handleEdit} handleSubmit={this.handleSubmit} editItem={this.state.editItem}/>
+                {(
+                    <div>
+                        <Navigation/>
+                        <Dashboard/>
+                        <div className="row">
+                            <div className="container-fluid col-md-6">
+                                <ToDoInput item={this.state.item} handleEdit={this.handleEdit} handleSubmit={this.handleSubmit} editItem={this.state.editItem}/>
+                            </div>
+                            <div className="container-fluid col-md-6">
+                                <ToDoList items={this.state.items} clearList={this.clearList} handleDelete={this.handleDelete} handleModify={this.handleModify} handleComplete={this.handleComplete} completed={this.handleComplete.completion}/>
+                            </div>
+                        </div>
+                        <div>
+                            <FooterHandler/>
+                        </div>
+                        <ParticlesBg type="cobweb" bg={true}/>
                     </div>
-                    <div className="container-fluid col-md-6">
-                        <ToDoList items={this.state.items} clearList={this.clearList} handleDelete={this.handleDelete} handleModify={this.handleModify} handleComplete={this.handleComplete} completed={this.handleComplete.completion}/>
-                    </div>
-                </div>
+                    )}
             </div>
         );
     }

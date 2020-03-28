@@ -7,7 +7,8 @@ class ToDoList extends Component{
     render() {
         const { items, clearList, handleDelete, handleModify, handleComplete, completed } = this.props;
         return (
-            <div className="card card-body my-3">
+            <div className="container pt-3" >
+            <div className="card card-body my-0 bg-light">
                 <div className="row">
                     <div className="col-md-2"></div>
                     <div className="col-md-8">
@@ -33,6 +34,7 @@ class ToDoList extends Component{
                         </ul>
                     </div>
                 </div>
+            </div>
             </div>
         );
     }

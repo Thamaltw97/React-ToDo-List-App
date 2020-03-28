@@ -25,5 +25,3 @@ class ToDoItem extends Component{
 }
 
 export default ToDoItem;
-
-//className="list-group-item text-capitalize d-flex justify-content-between my-2"
