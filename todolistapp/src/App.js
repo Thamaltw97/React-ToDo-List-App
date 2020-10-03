@@ -34,6 +34,7 @@ class App extends Component {
     }
 
     handleEdit = e => {
+        console.log("HandleEdit")
         this.setState({
             item: e.target.value
         });
